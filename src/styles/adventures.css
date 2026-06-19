@@ -1,0 +1,67 @@
+.adventures{
+    padding:60px 8%;
+    background:#111;
+}
+
+.adventures h2{
+    text-align:center;
+    color:white;
+    font-size:3rem;
+    margin-bottom:40px;
+}
+
+.adventure-card{
+    height:400px;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:40px;
+    position:relative;
+    background-size:cover;
+    background-position:center;
+    transition:.5s;
+    transition: transform .4s ease;
+}
+
+.adventure-card:hover{
+    transform:scale(1.03);
+}
+/* 
+.mountain{
+    background-image:url('/mountains.jpg');
+}
+
+.beach{
+    background-image:url('/beach.jpg');
+}
+
+.wildlife{
+    background-image:url('/wildlife.jpg');
+} */
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    color:white;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding-left:60px;
+}
+
+.overlay h3{
+    font-size:3rem;
+}
+
+.overlay p{
+    margin:15px 0;
+    font-size:1.2rem;
+}
+
+.adventure-card{
+    transition: all .4s ease;
+}
+
+.adventure-card:hover{
+    transform: translateY(-10px) scale(1.03);
+}

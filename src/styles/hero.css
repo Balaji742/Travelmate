@@ -1,0 +1,152 @@
+.hero{
+    height: 100vh;
+    background-image:linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    animation: zoomBg 20s ease-in-out infinite alternate;
+    /* margin-bottom: 80px; */
+}
+
+.hero::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.3);
+}
+
+.hero-content{
+    position:relative;
+    z-index:10;
+    text-align:center;
+    color:white;
+}
+
+.cloud{
+    position: absolute;
+    width: 180px;
+    opacity: 0.8;
+    z-index: 5;
+    animation: float 3s ease-in-out infinite;
+}
+.cloud1{
+    top:120px;
+    left:150px;
+}
+
+.cloud2{
+    top:120px;
+    right:80px;
+}
+
+/* .cloud3{
+    top:250px;
+    left:50%;
+    
+} */
+.cloud1,.cloud2,.cloud3{
+    position: absolute;
+    z-index: 5;
+}
+
+@keyframes float{
+    0%{transform: translateY(0);}
+    50%{transform: translateY(-15px);}
+    100%{transform: translateY(0);}
+}
+
+@keyframes zoomBg{
+    from{
+        background-size:100%;
+    }
+    to{
+        background-size:110%;
+    }
+}
+
+.birds1{
+    width:300px;
+    position: absolute;
+    left: 580px;
+    bottom: 140px;
+    z-index: 2;
+    /* filter: drop-shadow(0 0 20px orange) drop-shadow(0 0 20px orange); */
+}
+
+.hero-content h1{
+    font-size:5rem;
+    font-weight:700;
+    text-shadow:0 0 20px rgba(255,255,255,.25);
+}
+
+.hero-content p{
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.hero-content button{
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.sun{
+    width:300px;
+    /* border:2px solid red; */
+    position: absolute;
+    /* top: 60px; */
+    left: 280px;
+    bottom: 140px;
+    z-index: 2;
+    filter: drop-shadow(0 0 20px orange) drop-shadow(0 0 20px orange);
+}
+.bison2{
+    position:absolute;
+    width:380px;
+    left:40px;
+    bottom:40px;
+    z-index:3;
+}
+
+.scroll-indicator{
+    margin-top:40px;
+    display:flex;
+    justify-content:center;
+}
+
+.scroll-indicator span{
+    width:30px;
+    height:50px;
+    border:2px solid white;
+    border-radius:20px;
+    position:relative;
+}
+
+.scroll-indicator span::before{
+    content:'';
+    position:absolute;
+    width:6px;
+    height:10px;
+    background:white;
+    border-radius:50%;
+    left:50%;
+    transform:translateX(-50%);
+    animation:scrollDown 1.5s infinite;
+}
+
+@keyframes scrollDown{
+    0%{
+        top:8px;
+        opacity:1;
+    }
+    100%{
+        top:28px;
+        opacity:0;
+    }
+}
