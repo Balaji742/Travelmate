@@ -1,55 +1,56 @@
-.destination-grid{
+.destination-grid {
     display: grid;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 40px;
     animation: fadeUp 1s ease;
 }
 
-@keyframes fadeUp{
-    from{
+@keyframes fadeUp {
+    from {
         opacity: 0;
         transform: translateY(40px);
     }
-    to{
+
+    to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.card{
+.card {
     border-radius: 15px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgb(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgb(0, 0, 0, 0.15);
     transition: all 0.4s ease;
     cursor: pointer;
 }
 
-.card:hover{
+.card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgb(0,0,0,0.15);
+    box-shadow: 0 15px 30px rgb(0, 0, 0, 0.15);
 }
 
-.card img{
+.card img {
     width: 100%;
     height: 220px;
     object-fit: cover;
     transition: 0.5s;
 }
 
-.card:hover img{
+.card:hover img {
     transform: scale(1.1);
 }
 
-.card-body{
+.card-body {
     padding: 15px;
 }
 
-.image-container{
+.image-container {
     position: relative;
 }
 
-.badge{
+.badge {
     position: absolute;
     top: 12px;
     left: 12px;
@@ -60,25 +61,25 @@
     border-radius: 20px;
     font-size: 0.8rem;
     z-index: 2;
-    box-shadow: 0 4px 10px rgba(0,0,0,.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .2);
 }
 
-.card-footer{
+.card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.destinations{
-    background: linear-gradient(to bottom,#ffffff,#f8fafc);
+.destinations {
+    background: linear-gradient(to bottom, #ffffff, #f8fafc);
 }
 
-.destinations h2{
+.destinations h2 {
     color: #1f2937;
     font-weight: 700;
 }
 
-.destinations h2::after{
+.destinations h2::after {
     content: '';
     display: block;
     width: 80px;
@@ -88,6 +89,20 @@
     border-radius: 10px;
 }
 
-.destinations p{
+.destinations p {
     color: #6b7280;
+}
+
+.dest-card {
+
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    
+}
+
+.dest-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }

@@ -6,7 +6,7 @@ const DestinationCard = ({ image, title, country, price }) => {
 
   const navigate = useNavigate()
   return (
-    <div className='card' onClick={()=>navigate('/booking')}>
+    <div className='card' onClick={()=>navigate('/destinations')}>
       <div className='image-container'>
       <img src={image} alt={title} />
       <span className='badge'>Popular</span>
