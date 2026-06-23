@@ -6,12 +6,13 @@ import {
     Marker,
     Popup
 } from "react-leaflet";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Parallax } from 'react-scroll-parallax';
 import { Link } from "react-router-dom";
 
 const DestinationDetails = () => {
     const { id } = useParams();
+    const navigate = useNavigate()
 
     const destination = destinations.find(
         (item) => item.id === Number(id)
@@ -122,7 +123,7 @@ const DestinationDetails = () => {
                             <p>✔ Airport Transfer</p>
                             <p>✔ Breakfast Included</p>
                             <p>✔ Guided Tours</p>
-                            <button className="btn btn-success w-100">Book Now</button>
+                            <button className="btn btn-success w-100" onClick={()=>navigate(`/bookings/${destination.id}`)}>Book Now</button>
                         </div>
                     </div>
                 </div>
