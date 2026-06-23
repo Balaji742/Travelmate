@@ -10,12 +10,15 @@ import Footer from '../components/Footer'
 import AdventureSection from '../components/AdventureSection'
 import Testimonials from '../components/Testimonials'
 import Cta from '../components/Cta'
+import { Parallax } from 'react-scroll-parallax'
 
 
 const Home = () => {
   return (
     <div>
+      <Parallax speed={-20}>
       <Hero />
+      </Parallax>
       <AdventureSection />
 
       <section className='destinations'>

@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import Destinations from '../pages/Destinations'
 import Booking from '../pages/Booking'
 import Login from '../pages/Login'
+import DestinationDetails from "../pages/DestinationDetails";
 
 const Routings = () => {
   return (
@@ -11,6 +12,7 @@ const Routings = () => {
        <Routes>
         <Route path='/' element={<Home/>} />
         <Route path='/destinations' element={<Destinations/>}/>
+        <Route path="/destination/:id" element={<DestinationDetails />} />
         <Route path='/bookings' element={<Booking/>}/>
         <Route path='/login' element={<login/>}/>
       </Routes>
