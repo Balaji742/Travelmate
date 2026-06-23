@@ -3,3 +3,17 @@
     margin: 0;
     padding: 0;
 }
+
+.card {
+  border: none;
+  border-radius: 20px;
+}
+
+.form-control {
+  height: 55px;
+}
+
+.btn-success {
+  height: 55px;
+  font-weight: bold;
+}
