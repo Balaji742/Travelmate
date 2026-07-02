@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
-import { destinations } from '../data/destinationsData';
+import { destinations } from '../data/Destinationsdata';
 import { auth, db } from '../firabase';
 import { addDoc, collection } from 'firebase/firestore';
 

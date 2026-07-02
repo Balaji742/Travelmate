@@ -1,5 +1,5 @@
 import React from 'react'
-import { destinations } from "../data/destinationsData";
+import { destinations } from "../data/Destinationsdata";
 import {
     MapContainer,
     TileLayer,

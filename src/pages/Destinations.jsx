@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { destinations } from "../data/destinationsData";
+import { destinations } from "../data/Destinationsdata";
 import '../styles/destinations.css'
 import notfound from "../assets/notfound.png";
 import bali1 from "../assets/bali1.jpg";
