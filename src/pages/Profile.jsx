@@ -12,7 +12,7 @@ import profile from "../assets/profile.jpg"
 import { MdOutlineCalendarToday } from "react-icons/md";
 import { PiAirplaneTiltLight } from "react-icons/pi";
 import { FaRegStar } from "react-icons/fa6";
-import { destinations } from "../data/DestinationsData";
+import { destinations } from "../data/destinationsData";
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { auth, db } from '../firabase';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
