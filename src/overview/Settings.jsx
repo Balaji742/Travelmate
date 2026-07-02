@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FaUser } from "react-icons/fa6";
 import { IoNotifications, IoShieldCheckmark } from "react-icons/io5";
 import { MdKeyboardArrowRight } from 'react-icons/md';
-import Switch from "react-Switch"
+import Switch from "react-switch"
 import { IoWarning } from "react-icons/io5";
 import { auth, db } from '../firabase';
 import { collection, deleteDoc, doc, getDocs, query, serverTimestamp, setDoc, where } from 'firebase/firestore';
