@@ -85,9 +85,7 @@ const Login = () => {
 
             <p className="text-center mt-4">
               Already have an account?
-              <a href="/register" className="ms-2 text-success">
-                Register here
-              </a>
+              <Link to="/register" className="ms-2 text-success">Register here</Link>
             </p>
 
           </div>
