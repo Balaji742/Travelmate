@@ -41,7 +41,6 @@ const Profile = () => {
     );
 
     useEffect(() => {
-
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (currentUser) {
                 setUserData(currentUser);
