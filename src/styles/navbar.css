@@ -6,12 +6,25 @@
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    position: relative; 
+    z-index: 1000 !important;
+    top: 0;
+    left: 0;
 }
 
-.navbar ul{
+.nav-links {
     display: flex;
     gap: 25px;
     list-style: none;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-links li{
+    display: flex;
+    align-items: center;
 }
 
 .logo{
@@ -41,3 +54,14 @@
     color: #f59e0b;
 }
 
+.dropdown{
+    position: relative;
+}
+
+.dropdown-menu{
+    min-width: 180px !important;
+    width: 200px !important;
+    right: 0 !important;
+    left: auto !important;
+    
+}

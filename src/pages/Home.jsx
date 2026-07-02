@@ -16,19 +16,19 @@ import { Parallax } from 'react-scroll-parallax'
 const Home = () => {
   return (
     <div>
-      <Parallax speed={-20}>
-      <Hero />
-      </Parallax>
+      {/* <Parallax speed={-20}> */}
+        <Hero />
+      {/* </Parallax> */}
       <AdventureSection />
 
       <section className='destinations'>
         <h2 className='text-center mt-4 mb-2'>Popular Destinations</h2>
         <p className='text-center  mt-0 fs-4'>Discover handpicked destinations loved by thousands of travelers.</p>
         <div className='destination-grid'>
-          <DestinationCard image={bali1} title="Bali" country="Indonesia" price="$999" destination='bali'/>
-          <DestinationCard image={paris} title="Paris" country="France" price="$1499" destination='paris'/>
-          <DestinationCard image={dubai} title="Dubai" country="UAE" price="$1299" destination='dubai'/>
-          <DestinationCard image={tokyo} title="Tokyo" country="Japan" price="$1799" destination='japan'/>
+          <DestinationCard image={bali1} title="Bali" country="Indonesia" price="$999" destination='bali' />
+          <DestinationCard image={paris} title="Paris" country="France" price="$1499" destination='paris' />
+          <DestinationCard image={dubai} title="Dubai" country="UAE" price="$1299" destination='dubai' />
+          <DestinationCard image={tokyo} title="Tokyo" country="Japan" price="$1799" destination='japan' />
         </div>
       </section>
 
@@ -49,8 +49,8 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <Testimonials/>
-      <Cta/>
+      <Testimonials />
+      <Cta />
       <Footer />
     </div>
   )

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { destinations } from '../data/destinationsData';
-import { db } from '../firabase';
+import { auth, db } from '../firabase';
 import { addDoc, collection } from 'firebase/firestore';
 
 const Booking = () => {
@@ -9,15 +9,19 @@ const Booking = () => {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [travelDate, setTravelDate] = useState("");
-  const [travelers, setTravelers] = useState("");
+  const [travelers, setTravelers] = useState(1);
   const { id } = useParams();
   const destination = destinations.find((item) => item.id === Number(id));
+  const price = Number(destination.price.replace(/[^\d]/g,""));
+  const totalPrice = price * travelers;
 
   const handleBooking = async () => {
     try {
       await addDoc(collection(db, "bookings"), {
+        userId: auth.currentUser.uid,
         destination: destination.title,
         price: destination.price,
+        image:destination.image,
         name,
         email,
         phone,
@@ -43,10 +47,10 @@ const Booking = () => {
               <h2 className='mb-4'>Book Your Trip <br />for {destination.title}</h2>
               <form>
                 <input type='text' className='form-control mb-3' placeholder='Full Name' onChange={(e) => setName(e.target.value.replace(/[^A-Za-z\s]/g, ""))} />
-                <input type='email' className='form-control mb-3' placeholder='Email Address' />
-                <input type='number' className='form-control mb-3' placeholder='Phone Number' />
-                <input type='date' className='form-control mb-3' placeholder='Travel Date' />
-                <input type='number' className='form-control mb-3' placeholder='Number of Travelers' />
+                <input type='email' className='form-control mb-3' placeholder='Email Address' onChange={(e)=>setEmail(e.target.value)}/>
+                <input type='number' className='form-control mb-3' placeholder='Phone Number' onChange={(e)=>setPhone(e.target.value)}/>
+                <input type='date' className='form-control mb-3' placeholder='Travel Date' onChange={(e)=>setTravelDate(e.target.value)}/>
+                <input type='text' className='form-control mb-3' placeholder='Number of Travelers' value={travelers} onClick={(e)=>setTravelers(e.target.value)}/>
                 <textarea className="form-control" rows="4" placeholder="Special Requests" />
               </form>
             </div>
@@ -63,7 +67,14 @@ const Booking = () => {
                 <li>Breakfast Included</li>
                 <li>Guided Toors</li>
               </ul>
-              <h2 className="text-success fw-bold">{destination.price}</h2>
+              <h5>Price per Person</h5>
+              <h4 className="text-success fw-bold">{destination.price}</h4>
+              <hr/>
+              <h5>Number of Travelers</h5>
+              <h4>{travelers}</h4>
+              <hr />
+              <h5>Total price</h5>
+              <h3 className="text-primary fw-bold">{totalPrice.toLocaleString}</h3>
               <button className="btn btn-success w-100" onClick={handleBooking}>Confirm Booking</button>
             </div>
           </div>

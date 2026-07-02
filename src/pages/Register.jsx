@@ -4,41 +4,55 @@ import { FcGoogle } from "react-icons/fc";
 import { CiUser } from "react-icons/ci";
 import { MdOutlineEmail } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firabase";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth, db } from "../firabase";
 import { useNavigate } from "react-router-dom";
+import { doc, setDoc } from "firebase/firestore";
 
 const Register = () => {
 
-const [name, setName] = useState("");
-const [email, setEmail] = useState("");
-const [password, setPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
-const navigate = useNavigate()
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate()
 
-const handleRegister = async (e) => {
-  e.preventDefault();
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-  if (password !== confirmPassword) {
-    alert("Passwords do not match");
-    return;
-  }
+    if (password !== confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
 
-  try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      await updateProfile(userCredential.user, { displayName: name })
 
-    console.log("User Registered:", userCredential.user);
-    alert("Registration Successful");
-    navigate('/login')
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        fullName: name,
+        email: email,
+        phone: "",
+        dob: "",
+        gender: "",
+        country: "",
+        city: "",
+        photoURL: "",
+        createdAt: new Date()
+      })
 
-  } catch (error) {
-    alert(error.message);
-  }
-};
+      console.log("User Registered:", userCredential.user);
+      alert("Registration Successful");
+      navigate('/login')
+
+    } catch (error) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div className="container-fluid p-0">
@@ -65,12 +79,12 @@ const handleRegister = async (e) => {
                   fontSize: "22px",
                 }}
               />
-              <input type="text" className="form-control ps-5" placeholder="Enter your full name" />
+              <input type="text" className="form-control ps-5" value={name} placeholder="Enter your full name" onChange={(e) => setName(e.target.value)} />
             </div>
 
             <div className="position-relative mb-3">
               <MdOutlineEmail className="position-absolute" style={{ left: "15px", top: "50%", transform: "translateY(-50%)", fontSize: "22px", color: "gray", }} />
-              <input type="email" className="form-control ps-5" placeholder="Enter your email address" onChange={(e)=>setEmail(e.target.value)}/>
+              <input type="email" className="form-control ps-5" placeholder="Enter your email address" onChange={(e) => setEmail(e.target.value)} />
             </div>
 
             <div className="position-relative mb-3">
@@ -88,7 +102,7 @@ const handleRegister = async (e) => {
                 type="password"
                 className="form-control ps-5"
                 placeholder="Enter your password"
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -107,7 +121,7 @@ const handleRegister = async (e) => {
                 type="password"
                 className="form-control ps-5"
                 placeholder="Confirm your password"
-                onChange={(e)=>setConfirmPassword(e.target.value)}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
             </div>
 

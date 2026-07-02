@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { destinations } from "../data/destinationsData";
 import '../styles/destinations.css'
 import notfound from "../assets/notfound.png";
@@ -22,12 +22,16 @@ import MapSection from "../components/MapSection";
 import Footer from '../components/Footer';
 import { Parallax } from 'react-scroll-parallax';
 import { Link } from 'react-router-dom';
-// import DestinationCard from '../components/DestinationCard';
+import { FaHeart } from 'react-icons/fa';
+import { addDoc, collection, deleteDoc, doc, getDocs, query, where } from 'firebase/firestore';
+import { auth, db } from '../firabase';
+import { onAuthStateChanged } from 'firebase/auth';
 
 const Destinations = () => {
 
   const [search, setSearch] = useState("")
   const [sortBy, setSoryBy] = useState("featured")
+  const [wishList, setWishList] = useState([]);
 
   const filteredDest = destinations.filter((dest) => dest.title.toLowerCase().includes(search.toLowerCase()) || dest.country.toLowerCase().includes(search.toLowerCase()) || dest.category.toLowerCase().includes(search.toLowerCase()))
   const sortedDest = [...filteredDest]
@@ -42,6 +46,61 @@ const Destinations = () => {
   }
   if (sortBy === "Z-A") {
     sortedDest.sort((a, b) => b.country.localeCompare(a.country))
+  }
+
+  useEffect(() => {
+
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        fetchWishlist()
+      }
+    });
+    return unsubscribe;
+  }, [])
+
+  const fetchWishlist = async () => {
+    const q = query(collection(db, "whishlist"), where("userId", "==", auth.currentUser.uid));
+    const snapshot = await getDocs(q);
+    const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+    setWishList(data)
+  };
+
+  const handleWishlist = async (dest) => {
+    try {
+      const alreadyExists = wishList.find(
+        (item) => item.destinationId === dest.id
+      );
+
+      if (alreadyExists) {
+        await deleteDoc(doc(db, "whishlist", alreadyExists.id)) //Remove from firestore
+
+        setWishList(wishList.filter(item=>item.destinationId !== dest.id)); //Remove from state
+        alert("Removed from wishlist")
+      } else {
+        const docRef = await addDoc(collection(db, "whishlist"), {
+          userId: auth.currentUser.uid,
+          destinationId: dest.id,
+          title: dest.title,
+          country: dest.country,
+          price: dest.price,
+          image: dest.image,
+          createdAt: new Date(),
+        });
+
+        setWishList((prev) => [
+          ...prev,
+          {
+            id: docRef.id,
+            destinationId: dest.id,
+            title: dest.title,
+          },
+        ]);
+
+        alert("Added to wishlist!");
+      }
+    } catch (error) {
+      alert(error.message);
+    }
   }
 
   return (
@@ -64,39 +123,48 @@ const Destinations = () => {
         <div className='container mb-5'>
           <div className='row g-4'>
             {
-              filteredDest.length > 0 ? sortedDest.map((dest, i) => (
-                <div className='col-lg-4' key={i}>
-                  <div className='dest-card h-100 bg-light'>
-                    <img src={dest.image} alt={dest.title} width="100%" height="250px" style={{ objectFit: "cover" }} />
-                    <div className='p-3'>
-                      <div className='d-flex justify-content-between'>
-                        <h3>{dest.title}</h3>
-                        <h6>⭐ {dest.rating.rate}</h6>
+              filteredDest.length > 0 ? sortedDest.map((dest, i) => {
+                const isWishlisted = wishList.some(item => item.destinationId === dest.id)
+                return (
+                  <div className='col-lg-4' key={i}>
+                    <div className='dest-card h-100 bg-light'>
+                      <div className='position-relative'>
+                        <img src={dest.image} alt={dest.title} width="100%" height="250px" style={{ objectFit: "cover" }} />
+                        <FaHeart className='position-absolute' onClick={() => handleWishlist(dest)} style={{ top: "12px", right: "12px", padding: "5px", fontSize: "38px", cursor: "pointer", color: isWishlisted ? "red" : "white" }} />
                       </div>
-                      <h6 className='text-secondary mb-3'><IoLocation className='text-info' />
-                        {dest.country}</h6>
-                      <div className='d-flex justify-content-between pt-6'>
-                        <h5 className='fw-bold text-success'>{dest.price}</h5>
-                        <Link
-                          to={`/destination/${dest.id}`}
-                          className="btn btn-success"
-                        >
-                          View Details
-                        </Link>
+                      <div className='p-3'>
+                        <div className='d-flex justify-content-between'>
+                          <h3>{dest.title}</h3>
+                          <h6>⭐ {dest.rating.rate}</h6>
+                        </div>
+                        <h6 className='text-secondary mb-3'><IoLocation className='text-info' />
+                          {dest.country}</h6>
+                        <div className='d-flex justify-content-between pt-6'>
+                          <h5 className='fw-bold text-success'>{dest.price}</h5>
+                          <Link
+                            to={`/destination/${dest.id}`}
+                            className="btn btn-success"
+                          >
+                            View Details
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              )) :
-                <div className='text-center' >
-                  <Parallax rotate={[0, 8]}>
-                    <img src={notfound} alt="Not Found" style={{ maxWidth: "600px", width: "100%", marginBottom: "-20px" }} /></Parallax>
-                  <div style={{ marginTop: "-100px" }}>
-                    <h1 className='fw-bold'>Destination not found</h1>
-                    <p className='text-muted'>We couldn't find any destination <br />matching your search. <br /> Try another city or country.</p>
+                )
+              })
+                : (
+                  <div className='text-center' >
+                    <Parallax rotate={[0, 8]}>
+                      <img src={notfound} alt="Not Found" style={{ maxWidth: "600px", width: "100%", marginBottom: "-20px" }} /></Parallax>
+                    <div style={{ marginTop: "-100px" }}>
+                      <h1 className='fw-bold'>Destination not found</h1>
+                      <p className='text-muted'>We couldn't find any destination <br />matching your search. <br /> Try another city or country.</p>
+                    </div>
                   </div>
-                </div>
+                )
             }
+
           </div>
         </div>
       </Parallax>
@@ -110,11 +178,10 @@ const Destinations = () => {
               </Parallax>
             </div>
             <Footer />
-          </>)
-          : null
+          </>
+        ) : null
       }
     </div>
   )
 }
-
 export default Destinations

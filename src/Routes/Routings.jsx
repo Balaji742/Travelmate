@@ -7,6 +7,7 @@ import Login from '../pages/Login'
 import DestinationDetails from "../pages/DestinationDetails";
 import Register from '../pages/Register'
 import ProtectedRoutes from './ProtectedRoutes'
+import Profile from '../pages/Profile'
 
 
 const Routings = () => {
@@ -26,6 +27,7 @@ const Routings = () => {
             </ProtectedRoutes>
           }
         />
+        <Route path='/profile' element={<Profile/>} />
       </Routes>
     </div>
   )

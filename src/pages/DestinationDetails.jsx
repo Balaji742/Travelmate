@@ -9,6 +9,7 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { Parallax } from 'react-scroll-parallax';
 import { Link } from "react-router-dom";
+import { GoHeart } from 'react-icons/go';
 
 const DestinationDetails = () => {
     const { id } = useParams();
@@ -144,6 +145,7 @@ const DestinationDetails = () => {
                         <div className="col-md-4" key={item.id}>
                             <Link to={`/destination/${item.id}`} className="text-decoration-none text-dark">
                                 <div className="card h-100 shadow-sm">
+                                    <div className='position-relative'>
                                     <img
                                         src={item.image}
                                         className="card-img-top"
@@ -151,7 +153,9 @@ const DestinationDetails = () => {
                                         style={{ objectFit: "cover" }}
                                         alt={item.title}
                                     />
-
+                                    <GoHeart className='position-absolute bg-white rounded-circle shadow' style={{top:"12px",right:"12px",padding:"8px",fontSize:"38px",color:"#555",cursor:"pointer"}} />
+                                    </div>
+                                    
                                     <div className="card-body">
                                         <h5>{item.title}</h5>
                                         <p>{item.country}</p>
