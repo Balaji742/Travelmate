@@ -5,23 +5,26 @@ import bali1 from "../assets/bali1.jpg"
 import paris from "../assets/paris.jpg"
 import dubai from "../assets/dubai.jpg"
 import tokyo from "../assets/tokyo.jpg"
+import plane1 from "../assets/plane1.png"
 import '../styles/whychooseus.css'
 import Footer from '../components/Footer'
 import AdventureSection from '../components/AdventureSection'
 import Testimonials from '../components/Testimonials'
 import Cta from '../components/Cta'
 import { Parallax } from 'react-scroll-parallax'
+import FlyingPlane from '../components/FlyingPlane'
 
 
 const Home = () => {
   return (
     <div>
+      <FlyingPlane/>
       {/* <Parallax speed={-20}> */}
-        <Hero />
+      <Hero id="hero" />
       {/* </Parallax> */}
-      <AdventureSection />
+      <AdventureSection id="adventures" />
 
-      <section className='destinations'>
+      <section className='destinations' id="destinations">
         <h2 className='text-center mt-4 mb-2'>Popular Destinations</h2>
         <p className='text-center  mt-0 fs-4'>Discover handpicked destinations loved by thousands of travelers.</p>
         <div className='destination-grid'>
@@ -34,7 +37,7 @@ const Home = () => {
 
       <section className='why-us'>
         <h2>Why Choose TravelMate?</h2>
-        <div className='features'>
+        <div className='features' id="features">
           <div>
             <h3>Best Destinations</h3>
             <p>Handpicked travel experiences around the world.</p>
@@ -49,9 +52,9 @@ const Home = () => {
           </div>
         </div>
       </section>
-      <Testimonials />
+      <Testimonials id="testimonials" />
       <Cta />
-      <Footer />
+      <Footer id="footer"/>
     </div>
   )
 }

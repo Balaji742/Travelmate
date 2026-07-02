@@ -114,39 +114,23 @@
     z-index:3;
 }
 
-.scroll-indicator{
-    margin-top:40px;
-    display:flex;
-    justify-content:center;
+.scroll-arrow {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 40px;
+  color: white;
+  animation: bounce 1.5s infinite;
+  cursor: pointer;
+  z-index: 10;
 }
 
-.scroll-indicator span{
-    width:30px;
-    height:50px;
-    border:2px solid white;
-    border-radius:20px;
-    position:relative;
-}
-
-.scroll-indicator span::before{
-    content:'';
-    position:absolute;
-    width:6px;
-    height:10px;
-    background:white;
-    border-radius:50%;
-    left:50%;
-    transform:translateX(-50%);
-    animation:scrollDown 1.5s infinite;
-}
-
-@keyframes scrollDown{
-    0%{
-        top:8px;
-        opacity:1;
-    }
-    100%{
-        top:28px;
-        opacity:0;
-    }
+@keyframes bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
 }

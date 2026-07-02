@@ -39,3 +39,12 @@
     color: #666;
     line-height: 1.6;
 }
+
+.plane1 {
+  position: fixed;
+  top: 80px;
+  right: 100px;
+  width: 140px;
+  z-index: 9999;
+  /* pointer-events: none; */
+}

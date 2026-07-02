@@ -7,6 +7,7 @@ import cloud3 from '../assets/cloud3.png'
 import birds1 from '../assets/birds1.png'
 import sun from '../assets/sun.png'
 import bison2 from '../assets/bison2.png'
+import { FaChevronDown } from 'react-icons/fa'
 
 const Hero = () => {
   return (
@@ -29,8 +30,8 @@ const Hero = () => {
           <p>Explore beautiful destinations around the world</p>
         </Parallax>
         <button>Explore Now</button>
-        <div className="scroll-indicator">
-          <span></span>
+        <div className="scroll-arrow">
+          <FaChevronDown/>
         </div>
       </div>
     </section>
